@@ -1,14 +1,15 @@
-package com.sonny.store.category;
+package com.sonny.store.platform;
 
 import com.sonny.store.common.BaseEntity;
 import com.sonny.store.game.Game;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -17,13 +18,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SuperBuilder
-public class Category extends BaseEntity {
+public class Platform extends BaseEntity {
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Console console;
 
-    private String description;
-
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "platforms")
     private List<Game> games;
 }

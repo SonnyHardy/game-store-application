@@ -3,12 +3,15 @@ package com.sonny.store.game;
 import com.sonny.store.category.Category;
 import com.sonny.store.comment.Comment;
 import com.sonny.store.common.BaseEntity;
+import com.sonny.store.platform.Console;
+import com.sonny.store.platform.Platform;
 import com.sonny.store.whishlist.Wishlist;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -17,12 +20,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SuperBuilder
 public class Game extends BaseEntity {
 
+    @Column(nullable = false, unique = true)
     private String title;
 
-    @Enumerated(EnumType.STRING)
-    private SupportedPlatforms supportedPlatforms;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Platform> platforms;
 
     private String coverPicture;
 

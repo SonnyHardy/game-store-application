@@ -1,7 +1,7 @@
 package com.sonny.store.user;
 
 import com.sonny.store.common.BaseEntity;
-import com.sonny.store.gameRequest.GameRequest;
+import com.sonny.store.gameRequest.GameRequestEntity;
 import com.sonny.store.notification.Notification;
 import com.sonny.store.whishlist.Wishlist;
 import jakarta.persistence.Entity;
@@ -38,5 +38,5 @@ public class User extends BaseEntity {
     private List<Notification> notifications;
 
     @OneToMany(mappedBy = "user")
-    private List<GameRequest> gameRequests;
+    private List<GameRequestEntity> gameRequests;
 }

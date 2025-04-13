@@ -26,7 +26,7 @@ public class Game extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Platform> platforms;
 
     private String coverPicture;
@@ -35,7 +35,7 @@ public class Game extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", orphanRemoval = true)  // orphanRemoval = true means that if we delete a game, all its comments will be removed too
     private List<Comment> comments;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -58,5 +58,15 @@ public class Game extends BaseEntity {
     public void removeWishlist(Wishlist wishlist) {
         this.wishlists.remove(wishlist);
         wishlist.getGames().remove(this);
+    }
+
+    public void addPlatform(Platform platform) {
+        this.platforms.add(platform);
+        platform.getGames().add(this);
+    }
+
+    public void removePlatform(Platform platform) {
+        this.platforms.remove(platform);
+        platform.getGames().remove(this);
     }
 }

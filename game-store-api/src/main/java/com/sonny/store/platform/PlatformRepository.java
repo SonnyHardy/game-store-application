@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PlatformRepository extends JpaRepository<String, Platform> {
+public interface PlatformRepository extends JpaRepository<Platform, String> {
 
     @Query("""
         SELECT p FROM Platform p
